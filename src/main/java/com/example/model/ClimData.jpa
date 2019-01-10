@@ -3,14 +3,6 @@
     <jpa:entity compositePrimaryKeyClass="ClimDataPK" abs="false" class="ClimData" v="true" jbn="false" xre="false" m="false" rootElement="_15470796582921" id="_15470796683953">
         <jpa:ath>Lider</jpa:ath>
         <jpa:attributes>
-            <jpa:basic attribute-type="java.sql.Timestamp" v="true" xvt="" name="fecha" id="_15470799311986">
-                <jpa:xwm/>
-                <jpa:xm/>
-            </jpa:basic>
-            <jpa:basic attribute-type="double" v="true" xvt="" name="temp0" id="_15470800036017">
-                <jpa:xwm/>
-                <jpa:xm/>
-            </jpa:basic>
             <jpa:id attribute-type="Long" v="true" xvt="" name="id" id="_15470796684734">
                 <jpa:xwm/>
                 <jpa:xm/>

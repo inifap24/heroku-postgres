@@ -19,5 +19,9 @@ public class ClimDataServiceImpl implements ClimDataService {
     public Iterable<ClimData> getAll() {
         return repo.findAll();
     }
+    
+    public void save() {
+        repo.save(new ClimData());
+    }
         
 }
