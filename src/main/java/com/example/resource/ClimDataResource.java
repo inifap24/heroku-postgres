@@ -1,5 +1,6 @@
 package com.example.resource;
 
+import com.example.config.DataConfig;
 import com.example.domain.ClimData;
 import com.example.service.ClimDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClimDataResource {
 
     private final ClimDataService service;
+    private DataConfig dbProperties    
 
     @Autowired
-    public ClimDataResource(ClimDataService service) {
+    public ClimDataResource(ClimDataService service, DataConfig dbProperties) {
         this.service = service;
+        this.dbProperties = dbProperties;
     }
 
     @GetMapping
@@ -26,7 +29,7 @@ public class ClimDataResource {
     
     @GetMapping("/url")
     public String getUrl() {
-        return System.getenv("HEROKU_POSTGRESQL_AMBER_URL");
+        return dbProperties.getUrl();
     }
 
     @PostMapping
