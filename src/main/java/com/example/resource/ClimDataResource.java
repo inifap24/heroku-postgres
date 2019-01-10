@@ -11,22 +11,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/climDataService")
 public class ClimDataResource {
-    
+
     private final ClimDataService service;
 
     @Autowired
     public ClimDataResource(ClimDataService service) {
         this.service = service;
     }
-    
+
     @GetMapping
     public Iterable<ClimData> getAll() {
         return service.getAll();
     }
-    
+
     @PostMapping
     public void save() {
-        service.save();
+        for (int i = 0; i < 1000; i++) {
+            service.save();
+        }
     }
-    
+
 }
