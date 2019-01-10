@@ -11,6 +11,9 @@ spring:
         format_sql: false
         type: trace 
   datasource:
+    url: ${DATABASE_URL}
+#    username: root
+#    password: adminadmin
     driverClassName: org.postgresql.Driver
     connectionTimeout: 20000
     maxPoolSize: 10

@@ -13,7 +13,7 @@ public class AppConfig {
     
     @Bean(name = "dataSource", destroyMethod = "close")
     public DataSource dataSource(DataConfig dbProperties) throws URISyntaxException {
-        URI dbUri = new URI(System.getenv("HEROKU_POSTGRESQL_AQUA_URL"));
+        URI dbUri = new URI(System.getenv("HEROKU_POSTGRESQL_BLACK_URL"));
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
