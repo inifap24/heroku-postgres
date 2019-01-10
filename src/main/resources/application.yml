@@ -1,6 +1,6 @@
 spring:
   jpa:
-    database: postgres
+    database: postgresql
     show-sql: true 
     generate-ddl: false
     hibernate: 
