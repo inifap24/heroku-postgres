@@ -1,6 +1,8 @@
 package com.example.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -10,11 +12,15 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
     
     @Bean(name = "dataSource", destroyMethod = "close")
-    public DataSource masterDataSource(DataConfig dbProperties) {
+    public DataSource masterDataSource(DataConfig dbProperties) throws URISyntaxException {
+        URI dbUri = new URI(System.getenv("HEROKU_POSTGRESQL_AMBER_URL"));
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
         HikariDataSource ds = new HikariDataSource();
-//        ds.setUsername(dbProperties.getUsername());
-//        ds.setPassword(dbProperties.getPassword());
-        ds.setJdbcUrl(dbProperties.getUrl());
+        ds.setUsername(username);
+        ds.setPassword(password);
+        ds.setJdbcUrl(dbUrl);
         ds.setDriverClassName(dbProperties.getDriverClassName());
         ds.setPoolName(dbProperties.getPoolName());
         ds.setMaximumPoolSize(dbProperties.getMaxPoolSize());
