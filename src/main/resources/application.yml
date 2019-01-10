@@ -24,3 +24,4 @@ spring:
     minIdle: 10
     poolName: heropost-connection-pool
     removeAbandoned: true
+    
