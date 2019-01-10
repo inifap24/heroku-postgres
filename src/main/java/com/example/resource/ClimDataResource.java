@@ -23,6 +23,11 @@ public class ClimDataResource {
     public Iterable<ClimData> getAll() {
         return service.getAll();
     }
+    
+    @GetMapping("/url")
+    public String getUrl() {
+        return System.getenv("HEROKU_POSTGRESQL_AMBER_URL");
+    }
 
     @PostMapping
     public void save() {
