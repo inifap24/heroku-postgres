@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClimDataResource {
 
     private final ClimDataService service;
-    private DataConfig dbProperties    
+    private final DataConfig dbProperties;    
 
     @Autowired
     public ClimDataResource(ClimDataService service, DataConfig dbProperties) {
