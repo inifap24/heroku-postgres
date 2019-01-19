@@ -1,6 +1,6 @@
-package com.example.persistence;
+package tesis.tenant.persistence;
 
-import com.example.domain.ClimData;
+import tesis.tenant.domain.ClimData;
 import java.sql.Date;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

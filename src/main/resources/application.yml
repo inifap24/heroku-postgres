@@ -1,14 +1,16 @@
 spring:
+  application:
+    name: ClimGenMovil
   jpa:
     database: postgresql
-    show-sql: true 
-    generate-ddl: false
+    show-sql: false 
+    generate-ddl: true
     hibernate: 
       ddl-auto: update
     properties:
       hibernate:
         show_sql: false
-        format_sql: false
+        format_sql: true
         type: trace 
   datasource:
     url: ${DATABASE_URL}
@@ -22,6 +24,6 @@ spring:
     initialSize: 5
     idleTimeout: 300000
     minIdle: 10
-    poolName: heropost-connection-pool
+    poolName: app-connection-pool
     removeAbandoned: true
     
