@@ -1,17 +1,57 @@
 package tesis.tenant.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.repository.CrudRepository;
+import tesis.app.common.exception.ResourceNotFoundException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Service;
-import tesis.app.common.CrudServiceImpl;
+import tesis.tenant.domain.ClimData;
+import tesis.tenant.persistence.ClimDataRepository;
 
-@Service("ClimDataService")
-public class ClimDataServiceImpl<ClimData, String> extends CrudServiceImpl implements ClimDataService {    
+@Service
+public class ClimDataServiceImpl implements ClimDataService {
+
+    public final ClimDataRepository repo;
 
     @Autowired
-    public ClimDataServiceImpl(@Qualifier("ClimDataRepository") CrudRepository<ClimData, String> repo) {
-        super(repo);
-    }  
+    public ClimDataServiceImpl(ClimDataRepository repo) {
+        this.repo = repo;
+    }
         
+    @Override
+    public Iterable<ClimData> getAll() {
+        return repo.findAll();
+    }
+
+    @Override
+    public ClimData getById(String id) {        
+        return repo.findById(id).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @Override
+    public ClimData save(ClimData entity) {
+        return repo.save(entity);
+    }
+    
+    @Override
+    public ClimData update(String id, ClimData entity) {
+        repo.findById(id).orElseThrow(ResourceNotFoundException::new);      
+        return repo.save(entity);
+    }
+
+    @Override
+    public Iterable<ClimData> saveAll(Iterable<ClimData> entities) {
+        return repo.saveAll(entities);
+    }
+
+    @Override
+    public void remove(String id) {
+        repo.findById(id).orElseThrow(ResourceNotFoundException::new);
+        repo.deleteById(id);
+    }
+
+    @Override
+    public void removeAll(@RequestBody Iterable<ClimData> entities) {
+        repo.deleteAll(entities);
+    }
+
 }
