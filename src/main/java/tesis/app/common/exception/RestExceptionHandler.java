@@ -1,7 +1,5 @@
 package tesis.app.common.exception;
 
-import tesis.app.common.exception.ResourceIdMismatchException;
-import tesis.app.common.exception.ResourceNotFoundException;
 import javax.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;

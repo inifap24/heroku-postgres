@@ -19,38 +19,38 @@ public abstract class CrudResourceImpl<T, ID> {
     }
 
     @GetMapping
-    public Iterable<T> getAll(@RequestHeader(value = "tenantId") String tenant) {
+    public Iterable<T> getAll(@RequestHeader String tenantId) {
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public T getById(@PathVariable ID id, @RequestHeader(value = "tenantId") String tenant) {
+    public T getById(@PathVariable ID id, @RequestHeader String tenantId) {
         return service.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public T save(@RequestBody T entity, String tenant) {
+    public T save(@RequestBody T entity, String tenantId) {
         return service.save(entity);
     }
 
     @PutMapping("/{id}")
-    public T update(@PathVariable ID id, @RequestBody T entity, @RequestHeader(value = "tenantId") String tenant) {
+    public T update(@PathVariable ID id, @RequestBody T entity, @RequestHeader String tenantId) {
         return service.update(id, entity);
     }
 
     @DeleteMapping("/{id}")
-    public void remove(@PathVariable ID id, @RequestHeader(value = "tenantId") String tenant) {        
+    public void remove(@PathVariable ID id, @RequestHeader String tenantId) {        
         service.remove(id);
     }
 
     @PostMapping("/saveAll")
-    public Iterable<T> saveAll(Iterable<T> entities, @RequestHeader(value = "tenantId") String tenant) {
+    public Iterable<T> saveAll(Iterable<T> entities, @RequestHeader String tenantId) {
         return service.saveAll(entities);
     }
 
     @DeleteMapping("/removeAll")
-    public void removeAll(Iterable<T> entities, @RequestHeader(value = "tenantId") String tenant) {
+    public void removeAll(Iterable<T> entities, @RequestHeader String tenantId) {
         service.removeAll(entities);
     }
 

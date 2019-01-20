@@ -16,13 +16,11 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@EnableWebMvc
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"tesis.persistence"},
+        basePackages = {"tesis.app.persistence"},
         entityManagerFactoryRef = "appEntityManagerFactory",
         transactionManagerRef = "appTransactionManager"
 )
@@ -53,7 +51,7 @@ public class AppConfig {
             @Qualifier("dataSource") DataSource ds) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(ds);
-        em.setPackagesToScan("tesis.domain");
+        em.setPackagesToScan("tesis.app.domain");
         em.setPersistenceUnitName("app-persistence-unit");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(getHibernateProperties());

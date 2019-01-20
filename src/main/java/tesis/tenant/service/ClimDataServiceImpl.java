@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import tesis.app.common.CrudServiceImpl;
 
 @Service("ClimDataService")
-public class ClimDataServiceImpl<ClimData, Date> extends CrudServiceImpl implements ClimDataService {    
+public class ClimDataServiceImpl<ClimData, String> extends CrudServiceImpl implements ClimDataService {    
 
     @Autowired
-    public ClimDataServiceImpl(@Qualifier("ClimDataRepo") CrudRepository<ClimData, Date> repo) {
+    public ClimDataServiceImpl(@Qualifier("ClimDataRepository") CrudRepository<ClimData, String> repo) {
         super(repo);
     }  
         

@@ -10,11 +10,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class TenantAspect {
     
+    @Pointcut("execution(* tesis.app.common.CrudResourceImpl.*(..))")
+    public void crud() {}
     @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
-    public void serviceBean() {}
+    public void resource() {}
 
-    @Around("serviceBean()")
-    public Object interceptService(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    @Around("crud() || resource()")
+    public Object interceptResource(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         int len = proceedingJoinPoint.getArgs().length;
         if (len > 0 && proceedingJoinPoint.getArgs()[len - 1] instanceof String) {
             TenantContextHolder.setTenantId((String) proceedingJoinPoint.getArgs()[len - 1]);

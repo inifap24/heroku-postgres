@@ -1,9 +1,9 @@
 package tesis.tenant.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -11,7 +11,8 @@ import lombok.Data;
 public class ClimData implements Serializable {
 
     @Id
-    private Date fecha;
+    @Size(max = 8)
+    private String fecha;
     private double temp;
     private double eto;
 

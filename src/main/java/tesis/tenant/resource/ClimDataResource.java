@@ -9,10 +9,10 @@ import tesis.app.common.CrudService;
 
 @RestController
 @RequestMapping("/climDataService")
-public class ClimDataResource<ClimData, Date> extends CrudResourceImpl {
+public class ClimDataResource<ClimData, String> extends CrudResourceImpl {
 
     @Autowired
-    public ClimDataResource(@Qualifier("ClimDataService") CrudService<ClimData, Date> service) {
+    public ClimDataResource(@Qualifier("ClimDataService") CrudService<ClimData, String> service) {
         super(service);
     }
 

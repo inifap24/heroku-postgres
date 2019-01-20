@@ -1,19 +1,19 @@
 package tesis.tenant.hibernate;
 
+import com.google.common.base.Strings;
 import tesis.tenant.util.TenantContextHolder;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentifierResolver {
 
-    private static final String DEFAULT_TENANT_ID = "empresa";
+    private static final String DEFAULT_TENANT_ID = "860141";
 
     @Override
     public String resolveCurrentTenantIdentifier() {
         String tenant = TenantContextHolder.getTenant();
-        return StringUtils.isNotBlank(tenant) ? tenant : DEFAULT_TENANT_ID;
+        return Strings.isNullOrEmpty(tenant) ? DEFAULT_TENANT_ID : tenant;
     }
 
     @Override

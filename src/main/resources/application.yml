@@ -2,7 +2,6 @@ spring:
   application:
     name: ClimGenMovil
   jpa:
-    database: postgresql
     show-sql: false 
     generate-ddl: true
     hibernate: 
@@ -13,9 +12,6 @@ spring:
         format_sql: true
         type: trace 
   datasource:
-    url: ${DATABASE_URL}
-#    username: root
-#    password: adminadmin
     driverClassName: org.postgresql.Driver
     connectionTimeout: 20000
     maxPoolSize: 10
