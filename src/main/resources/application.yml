@@ -1,25 +1,16 @@
 spring:
-  application:
-    name: ClimGenMovil
   jpa:
-    show-sql: false 
+    show-sql: true
     generate-ddl: true
     hibernate: 
       ddl-auto: update
     properties:
       hibernate:
-        show_sql: false
+        show_sql: true
         format_sql: true
-        type: trace 
-  datasource:
-    driverClassName: org.postgresql.Driver
-    connectionTimeout: 20000
-    maxPoolSize: 10
-    maxActive: 10
-    maxIdle: 10
-    initialSize: 5
-    idleTimeout: 300000
-    minIdle: 10
-    poolName: app-connection-pool
-    removeAbandoned: true
-    
+        type: trace    
+datasource:
+  datalinks:
+    860141: HEROKU_POSTGRESQL_AMBER_URL
+    36177: HEROKU_POSTGRESQL_AQUA_URL
+  

@@ -1,7 +1,8 @@
 package tesis.tenant.hibernate;
 
 import com.google.common.collect.Iterables;
-import tesis.app.domain.Database;
+import java.util.ArrayList;
+import java.util.List;
 import tesis.tenant.util.DataSourceUtil;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -10,7 +11,6 @@ import org.hibernate.engine.jdbc.connections.spi.AbstractDataSourceBasedMultiTen
 import org.hibernate.service.spi.Stoppable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tesis.app.persistence.DatabaseRepository;
 
 @Component
 public class DataSourceBasedMultiTenantConnectionProviderImpl
@@ -18,13 +18,13 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl
         implements Stoppable {
 
     private static final long serialVersionUID = 1L;
-    private final DatabaseRepository databaseRepo;
+    private final DataLinksProperties datalinks;
     private Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<>();
 
     @Autowired
-    public DataSourceBasedMultiTenantConnectionProviderImpl(DatabaseRepository databaseRepo) {
-        this.databaseRepo = databaseRepo;
-        getDatabases();
+    public DataSourceBasedMultiTenantConnectionProviderImpl(DataLinksProperties datalinks) {
+        this.datalinks = datalinks;
+        datalinks.getDatalinks().forEach((k, v) -> addDatalink(k, v));
     }
 
     @Override
@@ -34,30 +34,12 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl
 
     @Override
     protected DataSource selectDataSource(String tenantId) {
-        if (!dataSourceMap.containsKey(tenantId)) {
-            addDatabase(databaseRepo.findByTenantId(tenantId));
-        }
         return dataSourceMap.get(tenantId);
     }
 
-    private void getDatabases() {
-        Iterable<Database> databases = databaseRepo.findAll();
-        if (Iterables.isEmpty(databases)) {
-            Database database = new Database();
-            database.setTenantId("860141");
-            database.setName("HEROKU_POSTGRESQL_AMBER_URL");
-            databaseRepo.save(database);
-            addDatabase(database);
-        } else {        
-            for (Database database : databases) {
-                addDatabase(database);
-            }
-        }
-    }
-
-    private void addDatabase(Database database) {
-        dataSourceMap.put(database.getTenantId(),
-                DataSourceUtil.createAndConfigureDataSource(database));
+    private void addDatalink(String tenantId, String datalink) {
+        dataSourceMap.put(tenantId,
+                DataSourceUtil.createAndConfigureDataSource(datalink));
     }
 
     @Override
@@ -69,3 +51,33 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl
     }
 
 }
+
+//        datalinks.add("HEROKU_POSTGRESQL_BLACK_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_BLUE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_BRONZE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_BROWN_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_CHARCOAL_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_COBALT_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_COPPER_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_CRIMSON_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_CYAN_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_GOLD_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_GRAY_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_GREEN_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_IVORY_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_JADE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_MAROON_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_MAUVE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_NAVY_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_OLIVE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_ONYX_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_ORANGE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_PINK_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_PUCE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_PURPLE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_RED_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_ROSE_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_SILVER_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_TEAL_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_TEAL_URL");
+//        datalinks.add("HEROKU_POSTGRESQL_YELLOW_URL");

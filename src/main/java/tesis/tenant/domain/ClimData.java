@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 @Data
 public class ClimData implements Serializable {
 
@@ -14,6 +16,6 @@ public class ClimData implements Serializable {
     @Size(max = 8)
     private String fecha;
     private double temp;
-    private double eto;
+    private double eto;      
 
 }

@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         basePackages = {"tesis.tenant.persistence"},
-        entityManagerFactoryRef = "tenantEntityManagerFactory",
-        transactionManagerRef = "tenantTransactionManager"
+        entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager"
 )
 public class TenantConfig {
 
@@ -33,13 +33,13 @@ public class TenantConfig {
         return new HibernateJpaVendorAdapter();
     }
 
-    @Bean("tenantTransactionManager")
-    public JpaTransactionManager tenantTransactionManager(EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
+    @Bean
+    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
-    @Bean("tenantEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean tenantEntityManagerFactory(
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             MultiTenantConnectionProvider connectionProvider,
             CurrentTenantIdentifierResolver tenantResolver,
             JpaVendorAdapter jpaVendorAdapter) {
@@ -55,7 +55,7 @@ public class TenantConfig {
         properties.put(
                 org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER,
                 tenantResolver);
-        properties.put(org.hibernate.cfg.Environment.SHOW_SQL, false);
+        properties.put(org.hibernate.cfg.Environment.SHOW_SQL, true);
         properties.put(org.hibernate.cfg.Environment.FORMAT_SQL, true);
         properties.put(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "update");
         em.setJpaVendorAdapter(jpaVendorAdapter);
