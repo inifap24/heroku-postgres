@@ -13,7 +13,7 @@ public class DataSourceUtil {
             URI dbUri = new URI(System.getenv(tenant.getName()));
             username = dbUri.getUserInfo().split(":")[0];
             password = dbUri.getUserInfo().split(":")[1];
-            dbUrl = "jdbc:mysql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+            dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -21,7 +21,7 @@ public class DataSourceUtil {
         ds.setUsername(username);
         ds.setPassword(password);
         ds.setJdbcUrl(dbUrl);
-        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        ds.setDriverClassName("org.potgresql.Driver");
         ds.setConnectionTimeout(20000);
         ds.setMinimumIdle(10);
         ds.setMaximumPoolSize(20);
