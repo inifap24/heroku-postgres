@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Database implements Serializable {
+public class Datalink implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

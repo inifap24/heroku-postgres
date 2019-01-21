@@ -8,7 +8,9 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.MultiTenancyStrategy;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,6 +26,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager"
 )
+@ComponentScan({
+    "tesis.tenant.hibernate",
+    "tesis.tenant.inject",
+    "tesis.tenant.service.impl",
+    "tesis.tenant.resource.impl"
+})
+
 public class TenantConfig {
 
     Log logger = LogFactory.getLog(getClass());
@@ -33,12 +42,14 @@ public class TenantConfig {
         return new HibernateJpaVendorAdapter();
     }
 
-    @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+    @Bean("transactionManager")
+    public JpaTransactionManager transactionManager(
+            @Qualifier("entityManagerFactory")
+            EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
-    @Bean
+    @Bean("entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             MultiTenantConnectionProvider connectionProvider,
             CurrentTenantIdentifierResolver tenantResolver,

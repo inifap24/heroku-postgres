@@ -3,11 +3,11 @@ package tesis.app.persistence;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import tesis.app.domain.Database;
+import tesis.app.domain.Datalink;
 
 @Repository
-public interface DatabaseRepository extends CrudRepository<Database, Long> {
+public interface DatalinkRepository extends CrudRepository<Datalink, Long> {
 
-    Database findByTenantId(@Param("tenantId") String tenantId);
+    Datalink findByTenantId(@Param("tenantId") String tenantId);
     
 }

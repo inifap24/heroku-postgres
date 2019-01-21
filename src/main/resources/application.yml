@@ -10,7 +10,7 @@ spring:
         format_sql: true
         type: trace 
   datasource:
-    driverClassName: org.postgresql.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     connectionTimeout: 20000
     maxPoolSize: 10
     maxActive: 10
