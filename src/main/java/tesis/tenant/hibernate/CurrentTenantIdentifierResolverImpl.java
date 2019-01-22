@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentifierResolver {
 
-    private static final String DEFAULT_TENANT_ID = "860141";
+    private static final String DEFAULT_TENANT_ID = "01";
 
     @Override
     public String resolveCurrentTenantIdentifier() {
