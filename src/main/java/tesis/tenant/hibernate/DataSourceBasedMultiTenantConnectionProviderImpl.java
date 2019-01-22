@@ -20,10 +20,13 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl
     private static final long serialVersionUID = 1L;
     private final DatalinkRepository datalinkRepo;
     private Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<>();
+    private final DataLinksProperties datalinksProps;
 
     @Autowired
-    public DataSourceBasedMultiTenantConnectionProviderImpl(DatalinkRepository datalinkRepo) {
+    public DataSourceBasedMultiTenantConnectionProviderImpl(
+            DatalinkRepository datalinkRepo, DataLinksProperties datalinksProps) {
         this.datalinkRepo = datalinkRepo;
+        this.datalinksProps = datalinksProps;
         getDatalinks();
     }
 
@@ -43,12 +46,14 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl
     private void getDatalinks() {
         Iterable<Datalink> datalinks = datalinkRepo.findAll();
         if (Iterables.isEmpty(datalinks)) {
-            Datalink datalink = new Datalink();
-            datalink.setTenantId("860141");
-            datalink.setName("HEROKU_POSTGRESQL_AMBER_URL");
-            datalinkRepo.save(datalink);
-            addDatalink(datalink);
-        } else {        
+            datalinksProps.getDatalinks().forEach((k, v) -> {
+                Datalink datalink = new Datalink();
+                datalink.setTenantId(k);
+                datalink.setName(v);
+                datalinkRepo.save(datalink);
+                addDatalink(datalink);
+            });
+        } else {
             for (Datalink datalink : datalinks) {
                 addDatalink(datalink);
             }
