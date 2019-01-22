@@ -44,8 +44,8 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl
         Iterable<Datalink> datalinks = datalinkRepo.findAll();
         if (Iterables.isEmpty(datalinks)) {
             Datalink datalink = new Datalink();
-            datalink.setTenantId("860141");
-            datalink.setName("HEROKU_POSTGRESQL_AMBER_URL");
+            datalink.setTenantId("0");
+            datalink.setName("DATABASE_URL");
             datalinkRepo.save(datalink);
             addDatalink(datalink);
         } else {        
