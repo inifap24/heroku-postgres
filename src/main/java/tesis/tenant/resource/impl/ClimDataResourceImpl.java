@@ -29,7 +29,9 @@ public class ClimDataResourceImpl extends CrudResourceImpl<ClimData, String> {
     @GetMapping("/getDatalinks")
     public List<String> getDatalinks() {
         List<String> datalinks = new ArrayList<>();
-        datalinksProps.getDatalinks().forEach((k, v) -> datalinks.add(System.getenv(v)));
+        datalinksProps.getDatalinks().forEach(
+                (k, v) -> datalinks.add(System.getenv(v))
+        );
         return datalinks;
     }
 
