@@ -5,14 +5,13 @@
  */
 package tesis.app.resource;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tesis.app.domain.Datalink;
 import tesis.app.persistence.DatalinkRepository;
+import tesis.app.transfer.DatalinkDTO;
+import tesis.app.util.ObjectMapperUtils;
 
 @RestController
 @RequestMapping("/app")
@@ -26,8 +25,8 @@ public class AppResource {
     }
 
     @GetMapping
-    public Iterable<Datalink> getAll() {
-        Iterable<Datalink> datalinks = datalinkRepo.findAll();
+    public Iterable<DatalinkDTO> getAll() {        
+        Iterable<DatalinkDTO> datalinks = ObjectMapperUtils.mapAll(datalinkRepo.findAll(), DatalinkDTO.class);
         datalinks.forEach(
                 d -> d.setName(System.getenv(d.getName()))
         );
