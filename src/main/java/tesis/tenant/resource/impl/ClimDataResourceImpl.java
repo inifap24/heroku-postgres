@@ -1,9 +1,7 @@
 package tesis.tenant.resource.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +27,9 @@ public class ClimDataResourceImpl extends CrudResourceImpl<ClimData, String> {
     }
     
     @GetMapping("/getDatalinks")
-    public Map<String, String> getDatalinks() {
-        Map<String, String> datalinks = new HashMap<>();
-        datalinksProps.getDatalinks().forEach((k, v) -> datalinks.put(k, System.getenv(v)));
+    public List<String> getDatalinks() {
+        List<String> datalinks = new ArrayList<>();
+        datalinksProps.getDatalinks().forEach((k, v) -> datalinks.add(System.getenv(v)));
         return datalinks;
     }
 
