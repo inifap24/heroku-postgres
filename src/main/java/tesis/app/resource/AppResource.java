@@ -5,6 +5,7 @@
  */
 package tesis.app.resource;
 
+import java.awt.AWTEventMulticaster;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,12 @@ public class AppResource {
     }
 
     @GetMapping
-    public Iterable<DatalinkDTO> getAll() {        
+    public Iterable<DatalinkDTO> getAll() {
         Iterable<DatalinkDTO> datalinks = ObjectMapperUtils.mapAll(
                 datalinkRepo.findAll(), DatalinkDTO.class
         );
-        datalinks.forEach(
-                d -> d.setName(System.getenv(d.getName()))
+        datalinks.forEach(d -> 
+                d.setName(System.getenv(d.getName()))
         );
         return datalinks;
     }
