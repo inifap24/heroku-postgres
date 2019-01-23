@@ -26,7 +26,9 @@ public class AppResource {
 
     @GetMapping
     public Iterable<DatalinkDTO> getAll() {        
-        Iterable<DatalinkDTO> datalinks = ObjectMapperUtils.mapAll(datalinkRepo.findAll(), DatalinkDTO.class);
+        Iterable<DatalinkDTO> datalinks = ObjectMapperUtils.mapAll(
+                datalinkRepo.findAll(), DatalinkDTO.class
+        );
         datalinks.forEach(
                 d -> d.setName(System.getenv(d.getName()))
         );
