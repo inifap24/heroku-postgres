@@ -16,6 +16,7 @@ public class ClimData implements Serializable {
     @Size(max = 8)
     private String fecha;
     private Double temp;
-    private Double eto;      
+    private Double eto;  
+    private Character tipo;
 
 }
