@@ -11,12 +11,12 @@ import tesis.tenant.util.TenantContextHolder;
 @Component
 public class TenantAspect {
     
-    @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
-    public void resource() {}
-
     @Pointcut("execution(* tesis.app.common.impl.CrudResourceImpl.*(..))")
     public void crud() {}
     
+    @Pointcut("@within(org.springframework.web.bind.annotation.RestController)")
+    public void resource() {}
+
     @Around("crud() || resource()")
     public Object interceptResource(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         int len = proceedingJoinPoint.getArgs().length;
