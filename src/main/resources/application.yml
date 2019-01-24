@@ -12,9 +12,9 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     connectionTimeout: 20000
-    maxPoolSize: 10
-    maxActive: 10
-    maxIdle: 10
+    maxPoolSize: 8
+    maxActive: 8
+    maxIdle: 8
     initialSize: 5
     idleTimeout: 300000
     minIdle: 10
