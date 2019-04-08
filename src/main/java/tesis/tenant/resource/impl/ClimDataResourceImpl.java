@@ -16,8 +16,8 @@ import tesis.tenant.domain.ClimData;
 import tesis.tenant.hibernate.DataLinksProperties;
 import tesis.tenant.persistence.ClimDataRepository;
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/climDataService")
 public class ClimDataResourceImpl extends CrudResourceImpl<ClimData, String> {
     
